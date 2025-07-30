@@ -571,9 +571,9 @@ public class BedWars extends JavaPlugin {
     }
 
     private void registerDelayedCommands() {
-        if (!nms.isBukkitCommandRegistered("shout")) {
+        /*if (!nms.isBukkitCommandRegistered("shout")) {
             nms.registerCommand("shout", new ShoutCommand("shout"));
-        }
+        }*/
         nms.registerCommand("rejoin", new RejoinCommand("rejoin"));
         if (!(nms.isBukkitCommandRegistered("leave") && getServerType() == ServerType.BUNGEE)) {
             nms.registerCommand("leave", new LeaveCommand("leave"));
