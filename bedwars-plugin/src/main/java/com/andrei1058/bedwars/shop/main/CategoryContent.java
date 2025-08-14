@@ -38,6 +38,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -162,6 +163,18 @@ public class CategoryContent implements ICategoryContent {
             } else {
                 ct = contentTiers.get(shopCache.getContentTier(getIdentifier()));
             }
+        }
+        
+        if (nms.isSword(ct.getItemStack())) {
+        	for (ItemStack itm : player.getInventory().getContents()) {
+                if (!BedWars.nms.isSword(itm)) continue;
+                // check for if is only worse sword available in inventory wooden > stone > iron > diamond > netherite without using nms
+                if (itm.getType().ordinal() >= ct.getItemStack().getType().ordinal()) {
+					player.sendMessage(getMsg(player, Messages.SHOP_ALREADY_BOUGHT));
+					Sounds.playSound(ConfigPath.SOUNDS_INSUFF_MONEY, player);
+					return;
+                }
+        	}
         }
 
         //check money

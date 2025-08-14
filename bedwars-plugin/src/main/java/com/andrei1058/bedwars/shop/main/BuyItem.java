@@ -254,11 +254,9 @@ public class BuyItem implements IBuyItem {
                 if (itm.getType() == Material.AIR) continue;
                 if (!BedWars.nms.isSword(itm)) continue;
                 if (itm == i) continue;
-                if (nms.isCustomBedWarsItem(itm) && nms.getCustomData(itm).equals("DEFAULT_ITEM")) {
-                    if (BedWars.nms.getDamage(itm) <= BedWars.nms.getDamage(i)) {
-                        player.getInventory().remove(itm);
-                    }
-                }
+	            if (BedWars.nms.getDamage(itm) <= BedWars.nms.getDamage(i)) {
+	                player.getInventory().remove(itm);
+	            }
             }
         }
         //
