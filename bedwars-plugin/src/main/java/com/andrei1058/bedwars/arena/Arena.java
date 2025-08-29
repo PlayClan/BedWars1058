@@ -511,19 +511,7 @@ public class Arena implements IArena {
             /* check if you can start the arena */
             boolean isStatusChange = false;
             if (status == GameState.waiting) {
-                int teams = 0, teammates = 0;
-                for (Player on : getPlayers()) {
-                    if (getParty().isOwner(on)) {
-                        teams++;
-                    }
-                    if (getParty().hasParty(on)) {
-                        teammates++;
-                    }
-                }
-                if (minPlayers <= players.size() && teams > 0 && players.size() != teammates / teams) {
-                    changeStatus(GameState.starting);
-                    isStatusChange = true;
-                } else if (players.size() >= minPlayers && teams == 0) {
+                if (players.size() >= minPlayers) {
                     changeStatus(GameState.starting);
                     isStatusChange = true;
                 }
@@ -801,7 +789,7 @@ public class Arena implements IArena {
                 teamuri = true;
             }
         }
-        if (status == GameState.starting && (maxInTeam > players.size() && teamuri || players.size() < minPlayers && !teamuri)) {
+        if (status == GameState.starting && (maxInTeam > players.size() && teamuri || players.size() < minPlayers)) {
             changeStatus(GameState.waiting);
             for (Player on : players) {
                 on.sendMessage(getMsg(on, Messages.ARENA_START_COUNTDOWN_STOPPED_INSUFF_PLAYERS_CHAT));
